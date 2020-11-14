@@ -83,6 +83,7 @@ public class server extends Application{
         return (pick * frequency) % (10 * frequency);
     }
 
+    //podesiti: Run -> Edit Configurations -> VM options : --module-path %PATH_TO_FX% --add-modules javafx.controls,javafx.fxml --add-exports javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED
     @Override
     public void start(Stage primaryStage) throws Exception {
         HBox root = new HBox();
