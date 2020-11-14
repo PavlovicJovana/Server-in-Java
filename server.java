@@ -22,7 +22,7 @@ public class server extends Application{
 
         //taking port from properties file
         Properties prop = new Properties();
-        try (FileInputStream fis = new FileInputStream("src/projekat/config.properties")) {
+        try (FileInputStream fis = new FileInputStream("config.properties")) {
             prop.load(fis);
         } catch (FileNotFoundException e) {
             System.err.println("File with the specified pathname does not exist");
