@@ -44,12 +44,13 @@ public class server extends Application{
                     //recieve number of picks from the client
                     int number_of_picks = in.read();
                     if(number_of_picks == -1)
-                        System.out.println("read() failed");
+                        System.err.println("read() failed");
 
                     //recieve frequency from the client
-                    int frequency = Integer.parseInt(in.readLine().trim());
-                    if(frequency == -1)
-                        System.out.println("read() failed");
+                    String freq_str = in.readLine();
+                    if(freq_str == null)
+                        System.err.println("read() failed");
+                    int frequency = Integer.parseInt(freq_str.trim());
 
                     double []pick = new double[number_of_picks];
                     double []f_pick = new double[number_of_picks];
@@ -57,9 +58,15 @@ public class server extends Application{
                     arguments_for_graph[0] = String.valueOf(number_of_picks);
 
                     //recieve picks from the client
+                    String pick_str = null;
                     for (int i = 0, j = 1; i < number_of_picks; i++) {
+                        //recieve pick from the client
+                        pick_str = in.readLine();
+                        if(pick_str == null)
+                            System.err.println("read() failed");
+                        
                         //linearization
-                        pick[i] = rounding(Double.parseDouble(in.readLine()), 2);
+                        pick[i] = rounding(Double.parseDouble(pick_str.trim()), 2);
                         //function calculation
                         f_pick[i] = functionPick(pick[i], frequency);
 
