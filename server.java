@@ -60,7 +60,6 @@ public class server extends Application{
                     //recieve picks from the client
                     String pick_str = null;
                     for (int i = 0, j = 1; i < number_of_picks; i++) {
-                        //recieve pick from the client
                         pick_str = in.readLine();
                         if(pick_str == null)
                             System.err.println("read() failed");
