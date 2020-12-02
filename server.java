@@ -1,22 +1,13 @@
 package projekat;
 
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 import java.util.Properties;
 
-public class server extends Application{
+public class server {
 
     public static void main(String []args) {
 
@@ -73,7 +64,7 @@ public class server extends Application{
                         arguments_for_graph[j++] = String.valueOf(f_pick[i]);
                     }
 
-                    Application.launch(arguments_for_graph);
+                    Application.launch(Graph.class, arguments_for_graph);
                 }
             }
         } catch (IOException e) {
@@ -87,35 +78,5 @@ public class server extends Application{
 
     public static double functionPick(double pick, int frequency) {
         return (pick * frequency) % (10 * frequency);
-    }
-
-    //podesiti: Run -> Edit Configurations -> VM options : --module-path %PATH_TO_FX% --add-modules javafx.controls,javafx.fxml --add-exports javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        HBox root = new HBox();
-        Scene scene = new Scene(root, 500, 400);
-
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("linearized_pick");
-
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("f(linearized_pick)");
-
-        LineChart<String, Number> lineChart = new LineChart<String, Number>(xAxis, yAxis);
-        lineChart.setTitle("Graph");
-
-        Parameters parameters = getParameters();
-        List<String> list_of_parametres = parameters.getRaw();
-
-        XYChart.Series<String, Number> data = new XYChart.Series<>();
-        for (int i = 1; i <= Integer.parseInt(list_of_parametres.get(0)) * 2; i = i + 2)
-            data.getData().add(new XYChart.Data<String, Number>(list_of_parametres.get(i), Double.parseDouble(list_of_parametres.get(i+1))));
-
-        lineChart.getData().add(data);
-        root.getChildren().add(lineChart);
-
-        primaryStage.setTitle("Graph");
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 }
